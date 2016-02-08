@@ -12,8 +12,11 @@ $(document).ready(function(){
     window.location='https://oauth.octoblu.com/authorize?client_id=3269a0c6-1be9-481e-b6eb-1d6c8bcd59b2&redirect_uri=' + redirect_uri + '&response_type=code';
     return;
   }
-  var parsedCode = window.atob(code);
-  console.log('parsedCode', parsedCode);
+  var parsedCode = _.tail(window.atob(code).split(':'));
+  var uuid = parsedCode[0];
+  var token = parsedCode[1];
+  console.log('uuid', uuid);
+  console.log('token', token);
   return
   var config = {
     uuid: uuid,
