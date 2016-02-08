@@ -20,6 +20,11 @@ $(document).ready(function(){
     '</div>';
 
   };
+  var noProgresses = function(){
+    return '<div>' +
+      '<h3>No active transfers</h3>' +
+    '</div>';
+  };
   var code = getQueryString('code');
   if(!code){
     var redirect_uri = encodeURIComponent('http://progress-monitor.octoblu.com');
@@ -42,6 +47,7 @@ $(document).ready(function(){
       conn.devices({type:'sharefile:status', 'sharefile.done': false}, function(result){
         progressStatuses = $('#progress-statuses');
         progressStatuses.empty();
+        if(!_.size(result.devices)) return progressStatuses.html(noProgresses());
         _.each(result.devices, function(device){
           progressStatuses.append(getFileProgress(device.sharefile));
         });
