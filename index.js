@@ -20,13 +20,17 @@ $(document).ready(function(){
     server: 'meshblu.octoblu.com',
     port: 443
   }
-  var meshbluHttp = new MeshbluHttp(config);
-  meshbluHttp.mydevices({type:'sharefile:status'}, function(error, result){
-    if(error) return console.error('Error', error);
-    progressStatuses = $('#progress-statuses');
-    progressStatuses.empty();
-    _.each(result.devices, function(device){
-      progressStatuses.append('<h1>'+device.sharefile.link+' '+device.sharefile.progress+'%</h1>');
+  var conn = meshblu.createConnection(config);
+  conn.on('ready', function(){
+    console.log('Connected to meshblu');
+    conn.devices({type:'sharefile:status'}, function(error, result){
+      if(error) return console.error('Error', error);
+      progressStatuses = $('#progress-statuses');
+      progressStatuses.empty();
+      _.each(result.devices, function(device){
+        progressStatuses.append('<h1>'+device.sharefile.link+' '+device.sharefile.progress+'%</h1>');
+      });
     });
   });
+
 });
