@@ -21,11 +21,11 @@ $(document).ready(function(){
     port: 443
   }
   var meshbluHttp = new MeshbluHttp(config);
-  meshbluHttp.devices({type:'sharefile:status'}, function(error, devices){
+  meshbluHttp.mydevices({type:'sharefile:status'}, function(error, result){
     if(error) return console.error('Error', error);
     progressStatuses = $('#progress-statuses');
     progressStatuses.empty();
-    _.each(devices, function(device){
+    _.each(result.devices, function(device){
       progressStatuses.append('<h1>'+device.sharefile.link+' '+device.sharefile.progress+'%</h1>');
     });
   });
