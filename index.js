@@ -8,7 +8,7 @@ $(document).ready(function(){
   var uuid = getQueryString('uuid');
   var token = getQueryString('token');
   if(!uuid || !token){
-    var redirect_uri = encodeURIComponent('https://progress-monitor.octoblu.com');
+    var redirect_uri = encodeURIComponent('http://progress-monitor.octoblu.com');
     window.location='https://oauth.octoblu.com/authorize?client_id=3269a0c6-1be9-481e-b6eb-1d6c8bcd59b2&redirect_uri=' + redirect_uri + '&response_type=code';
     return;
   }
