@@ -5,14 +5,15 @@ $(document).ready(function(){
     var string = reg.exec(href);
     return string ? string[1] : null;
   };
-  var uuid = getQueryString('uuid');
-  var token = getQueryString('token');
-  console.log('creds', uuid, token, window.location.href);
-  if(!uuid || !token){
+  var code = getQueryString('code');
+  console.log('creds', code, window.location.href);
+  if(!code){
     var redirect_uri = encodeURIComponent('http://progress-monitor.octoblu.com');
     window.location='https://oauth.octoblu.com/authorize?client_id=3269a0c6-1be9-481e-b6eb-1d6c8bcd59b2&redirect_uri=' + redirect_uri + '&response_type=code';
     return;
   }
+  var parsedCode = window.atob(code);
+  console.log('parsedCode', parsedCode);
   return
   var config = {
     uuid: uuid,
