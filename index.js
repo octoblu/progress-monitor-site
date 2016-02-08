@@ -5,6 +5,19 @@ $(document).ready(function(){
     var string = reg.exec(href);
     return string ? string[1] : null;
   };
+  var getFileProgress = function(sharefile){
+    var progress = sharefile.progress;
+    var link = sharefile.link;
+    return '<div>' +
+      '<h3>'+link+'</h3>' +
+      '<div class="progress">' +
+        '<div class="progress-bar" role="progressbar" aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">' +
+          progress + '%' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  };
   var code = getQueryString('code');
   if(!code){
     var redirect_uri = encodeURIComponent('http://progress-monitor.octoblu.com');
@@ -27,7 +40,7 @@ $(document).ready(function(){
       progressStatuses = $('#progress-statuses');
       progressStatuses.empty();
       _.each(result.devices, function(device){
-        progressStatuses.append('<h1>'+device.sharefile.link+' '+device.sharefile.progress+'%</h1>');
+        progressStatuses.append(getFileProgress(device.sharefile));
       });
     });
   });
