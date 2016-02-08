@@ -24,7 +24,6 @@ $(document).ready(function(){
   conn.on('ready', function(){
     console.log('Connected to meshblu');
     conn.devices({type:'sharefile:status'}, function(result){
-      if(error) return console.error('Error', error);
       progressStatuses = $('#progress-statuses');
       progressStatuses.empty();
       _.each(result.devices, function(device){
