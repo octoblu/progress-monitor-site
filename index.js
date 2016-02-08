@@ -11,7 +11,9 @@ $(document).ready(function(){
     return '<div>' +
       '<h3>'+link+'</h3>' +
       '<div class="progress">' +
-        '<div class="progress-bar" role="progressbar" aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">' +
+        '<div class="progress-bar" role="progressbar" '+
+          'aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" ' +
+          'style="width: '+progress+'%;">' +
           progress + '%' +
         '</div>' +
       '</div>' +
@@ -36,13 +38,16 @@ $(document).ready(function(){
   var conn = meshblu.createConnection(config);
   conn.on('ready', function(){
     console.log('Connected to meshblu');
-    conn.devices({type:'sharefile:status'}, function(result){
-      progressStatuses = $('#progress-statuses');
-      progressStatuses.empty();
-      _.each(result.devices, function(device){
-        progressStatuses.append(getFileProgress(device.sharefile));
+    var refresh = function(){
+      conn.devices({type:'sharefile:status', 'sharefile.done': false}, function(result){
+        progressStatuses = $('#progress-statuses');
+        progressStatuses.empty();
+        _.each(result.devices, function(device){
+          progressStatuses.append(getFileProgress(device.sharefile));
+        });
       });
-    });
+    }
+    setInterval(refresh, 2000);
   });
 
 });
