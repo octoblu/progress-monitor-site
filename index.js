@@ -66,7 +66,7 @@ $(document).ready(function(){
     console.log('Connected to meshblu');
 
     var refresh = function(){
-      conn.devices({type:'progress:status', 'progress.done': false}, function(result){
+      conn.devices({type:'progress:status'}, function(result){
         if(!_.size(result.devices)) return progressStatuses.html(noProgresses());
         _.each(result.devices, function(device){
           progressStatuses.append(getFileProgress(device.name, device.progressInfo));
