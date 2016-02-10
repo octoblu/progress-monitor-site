@@ -67,6 +67,7 @@ $(document).ready(function(){
 
     var refresh = function(){
       conn.devices({type:'progress:status'}, function(result){
+        progressStatuses.empty()
         if(!_.size(result.devices)) return progressStatuses.html(noProgresses());
         _.each(result.devices, function(device){
           progressStatuses.append(getFileProgress(device.name, device.progressInfo));
