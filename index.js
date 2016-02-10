@@ -22,7 +22,7 @@ $(document).ready(function(){
     }
 
     return '<div>' +
-      '<h3>'+name+'<small>'+title+'</small></h3>' +
+      '<h3>'+name+'&nbsp;&nbsp;&nbsp;<small>'+title+'</small></h3>' +
       '<div class="progress">' +
         '<div class="' + classes.join(' ') + '" role="progressbar" '+
           'aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" ' +
