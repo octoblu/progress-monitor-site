@@ -55,13 +55,13 @@ $(document).ready(function(){
     port: 443
   }
   var conn = meshblu.createConnection(config);
+  progressStatuses = $('#progress-statuses');
+  progressStatuses.html(loading());
+
   conn.on('ready', function(){
     console.log('Connected to meshblu');
 
-
     var refresh = function(){
-      progressStatuses = $('#progress-statuses');
-      progressStatuses.empty();
       progressStatuses.html(loading());
       conn.devices({type:'progress:status', 'progress.done': false}, function(result){
         progressStatuses.empty();
