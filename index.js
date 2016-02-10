@@ -34,6 +34,11 @@ $(document).ready(function(){
       '<h3>No active transfers</h3>' +
     '</div>';
   };
+  var loading = function(){
+    return '<div>' +
+      '<h3>Loading...</h3>' +
+    '</div>';
+  };
   var code = getQueryString('code');
   if(!code){
     var redirect_uri = encodeURIComponent('http://progress-monitor.octoblu.com');
@@ -52,9 +57,13 @@ $(document).ready(function(){
   var conn = meshblu.createConnection(config);
   conn.on('ready', function(){
     console.log('Connected to meshblu');
+
+
     var refresh = function(){
+      progressStatuses = $('#progress-statuses');
+      progressStatuses.empty();
+      progressStatuses.html(loading());
       conn.devices({type:'progress:status', 'progress.done': false}, function(result){
-        progressStatuses = $('#progress-statuses');
         progressStatuses.empty();
         if(!_.size(result.devices)) return progressStatuses.html(noProgresses());
         _.each(result.devices, function(device){
