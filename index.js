@@ -5,9 +5,9 @@ $(document).ready(function(){
     var string = reg.exec(href);
     return string ? string[1] : null;
   };
-  var getFileProgress = function(sharefile){
-    var progress = sharefile.progress;
-    var link = sharefile.link;
+  var getFileProgress = function(progressInfo){
+    var progress = progressInfo.progress;
+    var title = progressInfo.title;
     var classes = ['progress-bar'];
     if(!progress){
       classes.push('progress-bar-striped');
@@ -18,7 +18,7 @@ $(document).ready(function(){
       classes.push('progress-bar-info');
     }
     return '<div>' +
-      '<h3>'+link+'</h3>' +
+      '<h3>'+title+'</h3>' +
       '<div class="progress">' +
         '<div class="' + classes.join(' ') + '" role="progressbar" '+
           'aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" ' +
@@ -65,7 +65,7 @@ $(document).ready(function(){
       conn.devices({type:'progress:status', 'progress.done': false}, function(result){
         if(!_.size(result.devices)) return progressStatuses.html(noProgresses());
         _.each(result.devices, function(device){
-          progressStatuses.append(getFileProgress(device.sharefile));
+          progressStatuses.append(getFileProgress(device.progressInfo));
         });
       });
     }
