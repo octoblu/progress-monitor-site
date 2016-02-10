@@ -9,21 +9,25 @@ $(document).ready(function(){
     var progress = progressInfo.progress;
     var title = progressInfo.title;
     var classes = ['progress-bar'];
+    var progressText = progress + '%';
     if(!progress){
       classes.push('progress-bar-striped');
+      progress = 100
+      progressText = 'Initializing...'
     }
     if(progress >= 100){
       classes.push('progress-bar-success');
     }else{
       classes.push('progress-bar-info');
     }
+
     return '<div>' +
       '<h3>'+name+'<small>'+title+'</small></h3>' +
       '<div class="progress">' +
         '<div class="' + classes.join(' ') + '" role="progressbar" '+
           'aria-valuenow="'+progress+'" aria-valuemin="0" aria-valuemax="100" ' +
           'style="width: '+progress+'%;">' +
-          progress + '%' +
+          progressText +
         '</div>' +
       '</div>' +
     '</div>';
